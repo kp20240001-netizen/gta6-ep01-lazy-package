@@ -1,0 +1,18 @@
+name: Restore EP01-only index.html
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore EP01-only index.html
+        run: |
+          git config user.name "kp20240001-netizen"
+          git config user.email "kp20240001-netizen@users.noreply.github.com"
+          git mv index.html index-combined-backup.html
+          git mv index-ep01.html index.html
+          git commit -m "Restore EP01-only index.html; back up combined version"
+          git push
